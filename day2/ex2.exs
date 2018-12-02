@@ -2,8 +2,7 @@ defmodule Exercise2 do
   # https://en.wikipedia.org/wiki/Hamming_distance
   def hamming_distance(str1, str2) do
     Enum.zip(String.codepoints(str1), String.codepoints(str2))
-    |> Enum.map(&Tuple.to_list/1)
-    |> Enum.count(fn x -> List.first(x) != List.last(x) end)
+    |> Enum.count(fn {x, y} -> x != y end)
   end
 
   # ruby has combination, but not in elixir
@@ -21,9 +20,8 @@ defmodule Exercise2 do
 
   def common_letters(str1, str2) do
     Enum.zip(String.codepoints(str1), String.codepoints(str2))
-    |> Enum.map(&Tuple.to_list/1)
-    |> Enum.filter(fn x -> List.first(x) == List.last(x) end)
-    |> Enum.map(fn x -> List.first(x) end)
+    |> Enum.filter(fn {x, y} -> x == y end)
+    |> Enum.map(fn {x, _y} -> x end)
     |> Enum.join
   end
 
