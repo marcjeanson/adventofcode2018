@@ -26,8 +26,9 @@ defmodule Day3 do
     |> Enum.count(fn x -> x > 1 end)
   end
 
-  def count_multiple_claimed_squares(input) do
-    input
+  def part_1(input) do
+    File.stream!(input)
+    |> Stream.map(&String.trim_trailing/1)
     |> Enum.map(&parse_input/1)
     |> Enum.map(&convert_to_coordinates/1)
     |> List.flatten()
@@ -35,9 +36,21 @@ defmodule Day3 do
     |> count_multiples()
   end
 
-  def part_1(input) do
-    File.stream!(input)
+  def part_2(input) do
+    parsed_input = File.stream!(input)
     |> Stream.map(&String.trim_trailing/1)
-    |> count_multiple_claimed_squares()
+    |> Enum.map(&parse_input/1)
+
+    counter = parsed_input
+    |> Enum.map(&convert_to_coordinates/1)
+    |> List.flatten()
+    |> count_coordinates()
+
+    parsed_input
+    |> Enum.find(fn x ->
+        coords = convert_to_coordinates(x)
+        Enum.all?(coords, fn x -> Map.get(counter, x) == 1 end)
+      end)
+    |> List.first()
   end
 end

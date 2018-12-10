@@ -23,17 +23,11 @@ defmodule Day3Test do
     assert count_multiples(%{{1,1} => 1, {1,2} => 2, {2,2} => 2}) == 2
   end
 
-  test "count multiple claimed squares" do
-    input = [
-      "#1 @ 1,3: 4x4",
-      "#2 @ 3,1: 4x4",
-      "#3 @ 5,5: 2x2",
-    ]
-
-    assert count_multiple_claimed_squares(input) == 4
+  test "process part 1" do
+    assert part_1("./test/test_input") == 4
   end
 
-  test "process part_1" do
-    assert part_1("./test/test_input") == 4
+  test "process part 2" do
+    assert part_2("./test/test_input") == 3
   end
 end
